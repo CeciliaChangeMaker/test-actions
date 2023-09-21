@@ -4,30 +4,23 @@ on: [push]
 
 jobs:
   run-shell-command:
-     runs-on: ubuntu-18.04
-     steps:
-       - name: checkout
-         uses: actions/checkout@v3
-       - name: echo string
-         run: echo "hello world"
-       - name: multi string
-         run: |
-           node -v
-           npm -v
+    runs-on: ubuntu-18.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: echo string
+        run: echo "hello world"
+      - name: multi string
+        run: |
+          node -v
+          npm -v
 
-       - name: python command
-         run: 
-           import platform
-           #print(platform.processor())
-  shell: python
-
-run-windows-commands:
- runs-on: windows-latest
- needs: ["run-shell-command"]
-  steps:
-     - name: Directory
-       run: Get-Location
-     - name: Directory
-       run: pwd
-       shell: bash
+  run-windows-commands:
+    runs-on: windows-latest
+    needs: ["run-shell-command"]
+    steps:
+      - name: Directory
+        run: echo "Current Directory: $PWD"  # For displaying the current directory on Windows
+      - name: Directory
+        run: echo "Current Directory: $(pwd)"  # For displaying the current directory on Windows
 
