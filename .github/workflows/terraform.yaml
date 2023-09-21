@@ -1,9 +1,9 @@
 name: Terraform
 
-on: [push]
-env: 
-  AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
+on:
+  push:
+    branches:
+      - origin
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
@@ -11,15 +11,13 @@ env:
 
 jobs:
   terraform:
-<<<<<<< HEAD
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.1.9
 
@@ -33,23 +31,6 @@ jobs:
         run: terraform fmt -check
 
       - name: Terraform Plan
-        if: github.ref == 'refs/heads/origin' # Adjust branch name as needed
+        if: github.ref == 'refs/heads/origin'
         run: terraform plan
-=======
-  runs-on: ubuntu-latest
-  steps:
-    - name: checkout
-      uses: actions/checkout@v3
-    - name: Setup terraform
-      uses: hashicorp/set-up-terraform@v2
-      with:
-        terraform_version: 1.1.9
-     - name: terrafrom init
-       run: terraform init
-     - name: validate
-       run: terraform validate
-     - name: format
-       run: terraform fmt -check
-     - name: plan
-       run: terraform plan
->>>>>>> parent of 1855df9 (updatee)
+
